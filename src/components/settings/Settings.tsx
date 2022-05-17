@@ -1,5 +1,6 @@
-import { Button, ColorInput, NumberInput } from "@mantine/core";
+import { Button, ColorInput, NumberInput, Select } from "@mantine/core";
 import React from "react";
+import ColorPicker from "./ColorPicker";
 import FilePicker from "./FilePicker";
 
 export interface ISettings {
@@ -24,12 +25,9 @@ const Settings = (props: ISettings) => {
           props.setRenderSize(value);
         }}
       />
-      <ColorInput
-        value={props.bgColor}
-        placeholder="Selectionner une couleur 🎨"
-        label="🎨 Couleur d'arrière plan"
-        description="Définir la couleur d'arrière plan"
-        onChange={props.setBgColor}
+      <ColorPicker
+        bgColor={props.bgColor}
+        setBgColor={props.setBgColor}
       />
     </div>
   );
