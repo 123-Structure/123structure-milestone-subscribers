@@ -1,24 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ChangeEventHandler, useRef, useState } from "react";
+import "./App.css";
+import Settings from "./components/settings/Settings";
 
 function App() {
+  const [files, setFiles] = useState<string[]>([]);
+  const [renderSize, setRenderSize] = useState<number>(600);
+  const filePicker = useRef<HTMLInputElement>(null);
+  const [bgColor, setBgColor] = useState("#cccccc");
+
+  const imgSize = () => {
+    const s = renderSize / Math.ceil(Math.sqrt(files.length));
+    return s;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="app"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "16px",
+      }}
+    >
+      <Settings
+        filePicker={filePicker}
+        renderSize={renderSize}
+        bgColor={bgColor}
+        setRenderSize={setRenderSize}
+        setBgColor={setBgColor}
+        setFiles={setFiles}
+      />
+      <div
+        className="imgContainer"
+        style={{
+          width: `${renderSize}px`,
+          height: `${renderSize}px`,
+          display: "flex",
+          flexWrap: "wrap",
+          alignContent: "flex-start",
+          backgroundColor: bgColor,
+          margin: "32px",
+        }}
+      >
+        {files.map((file, index) => (
+          <img
+            key={index}
+            src={file}
+            alt="file"
+            style={{
+              width: `${imgSize()}px`,
+              height: `${imgSize()}px`,
+              objectFit: "cover",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
