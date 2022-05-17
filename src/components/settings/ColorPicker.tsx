@@ -28,6 +28,9 @@ const ColorPicker = (props: IColorPicker) => {
       }}
     >
       <ColorInput
+        style={{
+          width: "100%",
+        }}
         value={props.bgColor}
         placeholder="Selectionner une couleur 🎨"
         label="🎨 Couleur d'arrière plan"
@@ -36,6 +39,9 @@ const ColorPicker = (props: IColorPicker) => {
         format={colorFormat}
       />
       <Select
+        style={{
+          width: "100%",
+        }}
         label="Format"
         placeholder="Sélectionner un format de couleur"
         description="Définir le format de couleur"

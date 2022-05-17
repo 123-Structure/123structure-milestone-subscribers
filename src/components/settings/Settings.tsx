@@ -1,6 +1,7 @@
-import { Button, ColorInput, NumberInput, Select } from "@mantine/core";
-import React from "react";
+import { NumberInput } from "@mantine/core";
+import React, { Fragment } from "react";
 import ColorPicker from "./ColorPicker";
+import DarkModeToggle from "./DarkModeToggle";
 import FilePicker from "./FilePicker";
 
 export interface ISettings {
@@ -14,8 +15,14 @@ export interface ISettings {
 
 const Settings = (props: ISettings) => {
   return (
-    <div className="settings" style={{ width: "50%" }}>
-      <FilePicker filePicker={props.filePicker} setFiles={props.setFiles} />
+    <div
+      className="settings"
+      style={{ display: "flex", flexDirection: "column", width: "450px", gap: "8px" }}
+    >
+      <div style={{ display: "flex", gap: "1rem" }}>
+        <FilePicker filePicker={props.filePicker} setFiles={props.setFiles} />
+        <DarkModeToggle />
+      </div>
       <NumberInput
         defaultValue={props.renderSize}
         placeholder="Taille du rendu"
@@ -25,10 +32,7 @@ const Settings = (props: ISettings) => {
           props.setRenderSize(value);
         }}
       />
-      <ColorPicker
-        bgColor={props.bgColor}
-        setBgColor={props.setBgColor}
-      />
+      <ColorPicker bgColor={props.bgColor} setBgColor={props.setBgColor} />
     </div>
   );
 };
