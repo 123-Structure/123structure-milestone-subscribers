@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import html2canvas from "html2canvas";
 import * as htmlToImage from "html-to-image";
 import { saveAs } from "file-saver";
 import { Button } from "@mantine/core";
@@ -31,8 +30,7 @@ const DownloadButton = (props: IDownloadButton) => {
         img[j].style.width = `${size[i] / Math.ceil(Math.sqrt(img.length))}px`;
         img[j].style.height = `${size[i] / Math.ceil(Math.sqrt(img.length))}px`;
       }
-      // const canvas = await html2canvas(mosaic);
-      // const data = canvas.toDataURL("image/jpg");
+
       const canvas = await htmlToImage.toPng(mosaic).then((data) => data);
       const fileName =
         i !== size.length - 1
