@@ -1,7 +1,8 @@
 import { NumberInput } from "@mantine/core";
-import React, { Fragment } from "react";
+import React from "react";
 import ColorPicker from "./ColorPicker";
 import DarkModeToggle from "./DarkModeToggle";
+import DownloadButton from "./DownloadButton";
 import FilePicker from "./FilePicker";
 
 export interface ISettings {
@@ -17,7 +18,12 @@ const Settings = (props: ISettings) => {
   return (
     <div
       className="settings"
-      style={{ display: "flex", flexDirection: "column", width: "450px", gap: "8px" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "450px",
+        gap: "8px",
+      }}
     >
       <div style={{ display: "flex", gap: "1rem" }}>
         <FilePicker filePicker={props.filePicker} setFiles={props.setFiles} />
@@ -33,6 +39,7 @@ const Settings = (props: ISettings) => {
         }}
       />
       <ColorPicker bgColor={props.bgColor} setBgColor={props.setBgColor} />
+      <DownloadButton renderSize={props.renderSize} />
     </div>
   );
 };

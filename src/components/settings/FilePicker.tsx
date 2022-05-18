@@ -31,7 +31,7 @@ const FilePicker = (props: IFilePicker) => {
       <Button
         loaderPosition="right"
         loading={loading}
-        leftIcon={<FileUpload size={20} strokeWidth={1.5} />}
+        leftIcon={<FileUpload size={20} />}
         onClick={handleFilePickerButtonClick}
       >
         Sélectionner des images

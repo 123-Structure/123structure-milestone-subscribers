@@ -76,6 +76,8 @@ function App() {
               <img
                 key={index}
                 src={file}
+                className="img"
+                id={`img-${index}`}
                 alt="file"
                 style={{
                   width: `${imgSize()}px`,
