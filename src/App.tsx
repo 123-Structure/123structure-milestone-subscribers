@@ -73,16 +73,16 @@ function App() {
             }}
           >
             {files.map((file, index) => (
-              <img
+              <div
                 key={index}
-                src={file}
                 className="img"
                 id={`img-${index}`}
-                alt="file"
                 style={{
+                  backgroundImage: `url(${file})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
                   width: `${imgSize()}px`,
                   height: `${imgSize()}px`,
-                  objectFit: "cover",
                 }}
               />
             ))}

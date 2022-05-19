@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as htmlToImage from "html-to-image";
+import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import { Button } from "@mantine/core";
 import { Download } from "tabler-icons-react";
@@ -31,7 +31,8 @@ const DownloadButton = (props: IDownloadButton) => {
         img[j].style.height = `${size[i] / Math.ceil(Math.sqrt(img.length))}px`;
       }
 
-      const canvas = await htmlToImage.toPng(mosaic).then((data) => data);
+      const canvas = await html2canvas(mosaic);
+      const data = await canvas.toDataURL("image/png");
       const fileName =
         i !== size.length - 1
           ? `${size[i]}x${size[i]}`
@@ -39,7 +40,7 @@ const DownloadButton = (props: IDownloadButton) => {
       console.log("⏳ " + fileName);
       zip.file(
         `Mosaic_${fileName}.png`,
-        canvas.replace(/^data:image\/(png|jpg);base64,/, ""),
+        data.replace(/^data:image\/(png|jpg);base64,/, ""),
         {
           base64: true,
         }
