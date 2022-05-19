@@ -6,6 +6,7 @@ import { Download } from "tabler-icons-react";
 
 export interface IDownloadButton {
   renderSize: number;
+  bgColor: string;
 }
 
 const DownloadButton = (props: IDownloadButton) => {
@@ -23,35 +24,50 @@ const DownloadButton = (props: IDownloadButton) => {
 
     const size = [...imgSize, props.renderSize];
 
-    for (let i = 0; i < size.length; i++) {
-      mosaic.style.width = `${size[i]}px`;
-      mosaic.style.height = `${size[i]}px`;
-      for (let j = 0; j < img.length; j++) {
-        img[j].style.width = `${size[i] / Math.ceil(Math.sqrt(img.length))}px`;
-        img[j].style.height = `${size[i] / Math.ceil(Math.sqrt(img.length))}px`;
-      }
+    const folderName = ["Color_Background", "Transparent_Background"];
 
-      const canvas = await html2canvas(mosaic);
-      const data = await canvas.toDataURL("image/png");
-      const fileName =
-        i !== size.length - 1
-          ? `${size[i]}x${size[i]}`
-          : `perso_${size[i]}x${size[i]}`;
-      console.log("⏳ " + fileName);
-      zip.file(
-        `Mosaic_${fileName}.png`,
-        data.replace(/^data:image\/(png|jpg);base64,/, ""),
-        {
-          base64: true,
+    for (let i = 0; i < folderName.length; i++) {
+      const folder = zip.folder(folderName[i]);
+      for (let j = 0; j < size.length; j++) {
+        mosaic.style.width = `${size[j]}px`;
+        mosaic.style.height = `${size[j]}px`;
+        if (folderName[i] === "Transparent_Background") {
+          mosaic.style.backgroundColor = "transparent";
         }
-      );
+        for (let k = 0; k < img.length; k++) {
+          img[k].style.width = `${
+            size[j] / Math.ceil(Math.sqrt(img.length))
+          }px`;
+          img[k].style.height = `${
+            size[j] / Math.ceil(Math.sqrt(img.length))
+          }px`;
+        }
+
+        const canvas = await html2canvas(mosaic, {
+          backgroundColor: null,
+        });
+        const data = await canvas.toDataURL("image/png");
+        const fileName =
+          j !== size.length - 1
+            ? `${size[j]}x${size[j]}`
+            : `perso_${size[j]}x${size[j]}`;
+        console.log("⏳ " + fileName);
+        folder.file(
+          `Mosaic_${fileName}.png`,
+          data.replace(/^data:image\/(png|jpg);base64,/, ""),
+          {
+            base64: true,
+          }
+        );
+      }
     }
 
     zip.generateAsync({ type: "blob" }).then((content: any) => {
-      saveAs(content, "mosaic.zip");
+      saveAs(content, "Mosaic.zip");
       setLoading(false);
       mosaic.style.width = `${props.renderSize}px`;
       mosaic.style.height = `${props.renderSize}px`;
+      mosaic.style.backgroundColor = props.bgColor;
       for (let j = 0; j < img.length; j++) {
         img[j].style.width = `${
           props.renderSize / Math.ceil(Math.sqrt(img.length))

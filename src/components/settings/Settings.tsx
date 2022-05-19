@@ -39,7 +39,7 @@ const Settings = (props: ISettings) => {
         }}
       />
       <ColorPicker bgColor={props.bgColor} setBgColor={props.setBgColor} />
-      <DownloadButton renderSize={props.renderSize} />
+      <DownloadButton renderSize={props.renderSize} bgColor={props.bgColor} />
     </div>
   );
 };
