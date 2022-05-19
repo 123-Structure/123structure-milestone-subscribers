@@ -21,10 +21,12 @@ const DownloadButton = (props: IDownloadButton) => {
 
     const mosaic = document.querySelector(".imgContainer") as HTMLElement;
     const img = document.querySelectorAll(".img") as NodeListOf<HTMLElement>;
+    const checkerboard = document.querySelector(".checkerboard") as HTMLElement;
 
     const size = [...imgSize, props.renderSize];
-
     const folderName = ["Color_Background", "Transparent_Background"];
+
+    checkerboard.style.display = "none";
 
     for (let i = 0; i < folderName.length; i++) {
       const folder = zip.folder(folderName[i]);
@@ -76,6 +78,7 @@ const DownloadButton = (props: IDownloadButton) => {
           props.renderSize / Math.ceil(Math.sqrt(img.length))
         }px`;
       }
+      checkerboard.style.display = "block";
     });
   };
 

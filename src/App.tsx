@@ -70,8 +70,27 @@ function App() {
               alignContent: "flex-start",
               backgroundColor: bgColor,
               margin: "32px",
+              position: "relative",
             }}
           >
+            <div
+              className="checkerboard"
+              style={{
+                width: `${renderSize}px`,
+                height: `${renderSize}px`,
+                position: "absolute",
+                top: "0",
+                left: "0",
+                zIndex: "-1",
+                opacity: "0.8",
+                backgroundImage:
+                  colorScheme === "dark"
+                    ? "repeating-linear-gradient(45deg, #1a1b1e 25%, transparent 25%, transparent 75%, #1a1b1e 75%, #1a1b1e), repeating-linear-gradient(45deg, #1a1b1e 25%, #373a40 25%, #373a40 75%, #1a1b1e 75%, #1a1b1e)"
+                    : "repeating-linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff), repeating-linear-gradient(45deg, #ffffff 25%, #dee2e6 25%, #dee2e6 75%, #ffffff 75%, #ffffff)",
+                backgroundPosition: "0 0, 10px 10px",
+                backgroundSize: "20px 20px",
+              }}
+            />
             {files.map((file, index) => (
               <div
                 key={index}
